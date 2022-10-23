@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KFApplication</title>
+</head>
+<body>
+<div th:if="${authenticated}">
+    <form th:action="@{/logout}" method="post">
+        <div>Hi, [[${username}]]! <input type="submit" value="Sign Out"/></div>
+    </form>
+</div>
+<div th:unless="${authenticated}">
+    <div>Hi! <a th:href="@{/login}">Sign in </a> or <a th:href="@{/registration}">Registration</a></div>
+</div>
+</body>
+</html>
