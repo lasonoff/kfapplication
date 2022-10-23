@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-    UserRepository userRepository;
-    RoleRepository roleRepository;
-    KafkaService kafkaService;
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private KafkaService kafkaService;
 
     @Autowired
     public void setKafkaService(KafkaService kafkaService) {
