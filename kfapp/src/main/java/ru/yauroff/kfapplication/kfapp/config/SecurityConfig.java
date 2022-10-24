@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import ru.yauroff.kfapplication.kfapp.service.UserService;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity()
 public class SecurityConfig {
     private UserService userService;
 
