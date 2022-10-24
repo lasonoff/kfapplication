@@ -17,10 +17,6 @@
     <properties>
         <java.version>13</java.version>
         <flyway.version>7.8.2</flyway.version>
-        <flyway.user>${env.JDBC_DATABASE_USER}</flyway.user>
-        <flyway.password>${env.JDBC_DATABASE_PASSWORD}</flyway.password>
-        <flyway.url>${env.JDBC_DATABASE_URL}</flyway.url>
-        <flyway.locations>filesystem:src/main/resources/db/migration</flyway.locations>
     </properties>
 
     <dependencies>
@@ -48,6 +44,11 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>mysql</groupId>
@@ -96,19 +97,6 @@
                         </exclude>
                     </excludes>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>${flyway.version}</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>migrate</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
