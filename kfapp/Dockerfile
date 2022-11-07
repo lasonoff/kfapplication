@@ -1,0 +1,22 @@
+FROM openjdk:18-jdk-alpine
+
+EXPOSE 8080
+
+# Database arguments
+ARG JDBC_DATABASE_URL jdbc:mysql://127.0.0.1:3306/kfapplication?allowPublicKeyRetrieval=true&useSSL=false
+ENV JDBC_DATABASE_URL ${JDBC_DATABASE_URL}
+
+ARG JDBC_DATABASE_USER root
+ENV JDBC_DATABASE_USER ${JDBC_DATABASE_USER}
+
+ARG JDBC_DATABASE_PASSWORD root
+ENV JDBC_DATABASE_PASSWORD ${JDBC_DATABASE_PASSWORD}
+
+ARG KAFKA_SERVER localhost:9092
+ENV KAFKA_SERVER ${KAFKA_SERVER}
+
+ARG JAR_FILE=target/kfapp.jar
+
+ADD ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java","-jar","/app.jar"]
