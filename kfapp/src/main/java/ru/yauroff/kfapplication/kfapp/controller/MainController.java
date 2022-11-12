@@ -1,7 +1,7 @@
 package ru.yauroff.kfapplication.kfapp.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,20 +18,11 @@ import ru.yauroff.kfapplication.kfapp.service.exceptions.UserRegistrationExcepti
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
-    UserService userService;
+    private final UserService userService;
 
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String homePage(Authentication authentication, ModelMap model) {

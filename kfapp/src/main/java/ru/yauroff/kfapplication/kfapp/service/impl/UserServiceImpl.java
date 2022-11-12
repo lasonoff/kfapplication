@@ -1,5 +1,6 @@
 package ru.yauroff.kfapplication.kfapp.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,25 +23,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private KafkaService kafkaService;
-
-    @Autowired
-    public void setKafkaService(KafkaService kafkaService) {
-        this.kafkaService = kafkaService;
-    }
-
-    @Autowired
-    public void setRoleRepository(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final KafkaService kafkaService;
 
     @Override
     public User findByLogin(String login) {
@@ -54,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void registerNewUser(User user) throws UserRegistrationException {
+    public User registerNewUser(User user) throws UserRegistrationException {
         Role role = roleRepository.getByName("ROLE_USER");
         if (role == null) {
             throw new UserRegistrationException("Not found user role!");
@@ -63,6 +50,7 @@ public class UserServiceImpl implements UserService {
         User newUser = userRepository.save(user);
         KfRegistrationUserDto kfRegistrationUserDto = KfRegistrationUserDtoConverter.fromUser(newUser);
         kafkaService.flushUser(newUser.getId(), kfRegistrationUserDto);
+        return newUser;
     }
 
     @Override

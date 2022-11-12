@@ -11,5 +11,5 @@ public interface UserService extends UserDetailsService {
 
     User findByEmail(String email);
 
-    void registerNewUser(User user) throws UserRegistrationException;
+    User registerNewUser(User user) throws UserRegistrationException;
 }

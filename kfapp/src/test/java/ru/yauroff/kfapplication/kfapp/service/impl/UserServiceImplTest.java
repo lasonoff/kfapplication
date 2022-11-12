@@ -35,8 +35,7 @@ class UserServiceImplTest {
         user.setRoles(new ArrayList<>());
         when(mockUserRepository.getByLogin("UserLogin"))
                 .thenReturn(user);
-        UserServiceImpl service = new UserServiceImpl();
-        service.setUserRepository(this.mockUserRepository);
+        UserServiceImpl service = new UserServiceImpl(this.mockUserRepository, null, null);
         org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(user.getLogin(),
                 user.getPassword(), new ArrayList<>());
         assertEquals(service.loadUserByUsername("UserLogin"), userDetails);
