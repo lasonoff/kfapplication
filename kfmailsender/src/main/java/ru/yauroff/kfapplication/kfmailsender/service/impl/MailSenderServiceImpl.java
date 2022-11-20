@@ -31,12 +31,11 @@ public class MailSenderServiceImpl implements MailSenderService {
             message.setSubject("Registration!");
             message.setText("Hi, " + kfRegistrationUserDto.getFirstname() + "!\n\n"
                     + "You are registered on web service with login: " + kfRegistrationUserDto.getLogin() + ".");
-            //TODO:
-            CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> mailSender.send(message))
-                                                                         .exceptionally(ex -> {
-                                                                             log.error(ex.getMessage());
-                                                                             return null;
-                                                                         });
+            CompletableFuture.runAsync(() -> mailSender.send(message))
+                             .exceptionally(ex -> {
+                                 log.error(ex.getMessage());
+                                 return null;
+                             });
         }
     }
 }
